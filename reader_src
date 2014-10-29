@@ -1,0 +1,18 @@
+<?php
+public static function run($source) {
+    $tokens = array();
+    foreach($source as $number => $line) {            
+        $offset = 0;
+        while($offset < strlen($line)) {
+            $result = static::_match($line, $number, $offset);
+            if($result === false) {
+                throw new Exception("Unable to parse line " . ($line+1) . ".");
+            }
+            $tokens[] = $result;
+            $offset += strlen($result['match']);
+        }
+    }
+ 
+    return $tokens;
+ }
+ ?>
